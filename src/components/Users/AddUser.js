@@ -98,3 +98,6 @@ export default AddUser;
 // clean up the code using ref to read in values
 
 //"reset the input value after submit, but in general rarely use refs to manipulate the DOM, might has side effect, but here only reset user input, it's okay bc we're not changing/adding a component or css"
+// can change back to state solution. but not necessary one is better than the other, you can use two.
+//if only read value, ref is enough,ref is better, but edge case to wrap the code
+//
