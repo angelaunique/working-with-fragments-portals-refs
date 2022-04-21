@@ -1,44 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from "react";
 
-import Card from '../UI/Card';
-import Button from '../UI/Button';
-import ErrorModal from '../UI/ErrorModal';
-import Wrapper from '../Helpers/Wrapper';
-import classes from './AddUser.module.css';
+import Card from "../UI/Card";
+import Button from "../UI/Button";
+import ErrorModal from "../UI/ErrorModal";
+import Wrapper from "../Helpers/Wrapper";
+import classes from "./AddUser.module.css";
 
 const AddUser = (props) => {
-  const [enteredUsername, setEnteredUsername] = useState('');
-  const [enteredAge, setEnteredAge] = useState('');
+  const nameInputRef = useRef(); // return a value that allows us to work it later, what result in nameInputRef will be a real dom element later
+  const ageInputRef = useRef();
+  // don't need states bc using ref
+  //const [enteredUsername, setEnteredUsername] = useState("");
+  // const [enteredAge, setEnteredAge] = useState("");
   const [error, setError] = useState();
 
   const addUserHandler = (event) => {
     event.preventDefault();
-    if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0) {
+    //below two lines always retrieve value from the refs
+    const enteredName = nameInputRef.current.value;
+    const enteredUserAge = ageInputRef.current.value;
+    console.log(nameInputRef.current.value);
+    if (enteredName.trim().length === 0 || enteredUserAge.trim().length === 0) {
       setError({
-        title: 'Invalid input',
-        message: 'Please enter a valid name and age (non-empty values).',
+        title: "Invalid input",
+        message: "Please enter a valid name and age (non-empty values).",
       });
       return;
     }
-    if (+enteredAge < 1) {
+    if (+enteredUserAge < 1) {
       setError({
-        title: 'Invalid age',
-        message: 'Please enter a valid age (> 0).',
+        title: "Invalid age",
+        message: "Please enter a valid age (> 0).",
       });
       return;
     }
-    props.onAddUser(enteredUsername, enteredAge);
-    setEnteredUsername('');
-    setEnteredAge('');
+    props.onAddUser(enteredName, enteredUserAge);
+    // using ref, don't need  below way to get name and age
+    // setEnteredUsername("");
+    // setEnteredAge("");
   };
-
+  /*
   const usernameChangeHandler = (event) => {
     setEnteredUsername(event.target.value);
   };
 
   const ageChangeHandler = (event) => {
     setEnteredAge(event.target.value);
-  };
+  };*/
 
   const errorHandler = () => {
     setError(null);
@@ -59,15 +67,17 @@ const AddUser = (props) => {
           <input
             id="username"
             type="text"
-            value={enteredUsername}
-            onChange={usernameChangeHandler}
+            //value={enteredUsername}
+            //onChange={usernameChangeHandler}
+            ref={nameInputRef}
           />
           <label htmlFor="age">Age (Years)</label>
           <input
             id="age"
             type="number"
-            value={enteredAge}
-            onChange={ageChangeHandler}
+            //value={enteredAge}
+            //onChange={ageChangeHandler}
+            ref={ageInputRef}
           />
           <Button type="submit">Add User</Button>
         </form>
@@ -78,3 +88,9 @@ const AddUser = (props) => {
 
 export default AddUser;
 // replace <div> with Wrapper to sol return problem
+
+// store state into enteredUsername (line 10 ) and feed the state back to input 62, and use it letter on at line 31 and 30
+//we are updating the state with every key strok, but we only need it when we submit the form, souds redundent
+// refs could help with this, set up a connection between them
+
+// clean up the code using ref to read in values

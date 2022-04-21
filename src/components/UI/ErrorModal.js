@@ -50,3 +50,5 @@ export default ErrorModal;
 // To move model and Card above root,need to use portals(more detailed see video or notes)
 // split model to two parts to work with portals
 // document.getElementById("backdrop-root") let react know where it should be rendered
+
+//ref allows us to get access to our Dom element and to work with them.
