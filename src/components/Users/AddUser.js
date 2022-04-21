@@ -35,6 +35,8 @@ const AddUser = (props) => {
       return;
     }
     props.onAddUser(enteredName, enteredUserAge);
+    nameInputRef.current.value = "";
+    ageInputRef.current.value = "";
     // using ref, don't need  below way to get name and age
     // setEnteredUsername("");
     // setEnteredAge("");
@@ -94,3 +96,5 @@ export default AddUser;
 // refs could help with this, set up a connection between them
 
 // clean up the code using ref to read in values
+
+//"reset the input value after submit, but in general rarely use refs to manipulate the DOM, might has side effect, but here only reset user input, it's okay bc we're not changing/adding a component or css"
