@@ -54,6 +54,7 @@ const AddUser = (props) => {
     setError(null);
   };
 
+  //values below are uncontroled values by react
   return (
     <Wrapper>
       {error && (
@@ -101,3 +102,7 @@ export default AddUser;
 // can change back to state solution. but not necessary one is better than the other, you can use two.
 //if only read value, ref is enough,ref is better, but edge case to wrap the code
 //
+
+//if access value via ref, these are uncontrolled value, not controlled by react, rely on the default behaviour
+// don't feedthe input
+// react state is controlled
